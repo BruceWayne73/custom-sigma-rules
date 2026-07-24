@@ -1,0 +1,36 @@
+title: Adversary-in-the-Middle: Rogue DHCP Server Activity
+id: 8a4c12d2-90ef-4f22-a8bc-32918df123a1
+status: experimental
+description: Detects potential DHCP spoofing or rogue DHCP server activity (T1557.003) where an unauthorized host responds to DHCP requests or an unauthorized DHCP server is registered on the network.
+references:
+    - https://attack.mitre.org/techniques/T1557/003/
+    - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn800668(v=ws.11)
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.credential-access
+    - attack.defense-evasion
+    - attack.t1557.003
+logsource:
+    product: windows
+    service: dhcp-server
+detection:
+    # Event ID 1056: Rogue DHCP server detected / rogue detection loop triggered
+    # Event ID 1020/1046: DHCP service stopped or failed rogue detection check
+    selection_dhcp_events:
+        EventID:
+            - 1056
+            - 1020
+            - 1046
+    
+    # Event ID 1035 / 1036: DHCP Server authorized / unauthorized in Active Directory
+    selection_authorization:
+        EventID:
+            - 1036
+            - 1059 # Rogue server servicing clients on interface
+
+    condition: selection_dhcp_events or selection_authorization
+falsepositives:
+    - Misconfigured secondary DHCP servers or temporary test lab servers.
+    - Authorized network equipment replacement during IT maintenance windows.
+level: high

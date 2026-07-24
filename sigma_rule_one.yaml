@@ -1,0 +1,31 @@
+title: Potential Keylogging Software Execution
+id: c38012e1-456d-4912-a722-e3288fb837c1
+status: test
+description: Detects the execution of known keylogger utilities, command-line arguments associated with keystroke logging, or suspicious software capturing user input.
+references:
+    - https://attack.mitre.org/techniques/T1056/001/
+author: Arda Aktürk
+date: 2026-07-21
+tags:
+    - attack.credential_access
+    - attack.t1056.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_executables:
+        Image|endswith:
+            - '\keylogger.exe'
+            - '\pyhook.exe'
+            - '\kl.exe'
+    selection_cmdline:
+        CommandLine|contains:
+            - 'SetWindowsHookEx'
+            - 'GetAsyncKeyState'
+            - '--log-keys'
+            - 'logkeys'
+    condition: selection_executables or selection_cmdline
+falsepositives:
+    - Legitimate remote administration tools
+    - Accessibility tools (software for visually or physically impaired users)
+level: high

@@ -1,0 +1,30 @@
+title: Application Layer Protocol: DNS Tunneling or C2 Activity
+id: 14701da0-4b0f-4ee6-9c95-2ffb4e73bb9a
+status: experimental
+description: Detects potential C2 communication or data exfiltration abusing the DNS protocol (T1071.004) characterized by unusually long subdomain queries or suspicious query types.
+references:
+    - https://attack.mitre.org/techniques/T1071/004/
+    - https://attack.mitre.org/detectionstrategies/DET0400/
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.command-and-control
+    - attack.t1071.004
+logsource:
+    category: dns
+    product: zeek
+detection:
+    selection_long_query:
+        # Detects encoded payloads stuffed into subdomains (e.g., > 60 chars)
+        query|re: '^[a-zA-Z0-9_-]{60,}\.'
+    selection_suspicious_types:
+        # Tunneling tools heavily rely on TXT, NULL, or MX records to pass commands
+        qtype_name:
+            - 'TXT'
+            - 'NULL'
+            - 'CNAME'
+    condition: selection_long_query and selection_suspicious_types
+falsepositives:
+    - Legitimate security software performing domain reputation lookups (e.g., Sophos, Cisco Umbrella).
+    - DKIM/DMARC/SPF record checks generating long TXT queries.
+level: medium

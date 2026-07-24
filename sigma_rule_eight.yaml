@@ -1,0 +1,38 @@
+title: Potential Rootkit Installation or Driver Loading
+id: f4782b9a-8e21-4d39-91a5-3d849a629f2e
+status: experimental
+description: Detects process creation events, driver loading commands, or tools associated with rootkit deployment and kernel driver manipulation.
+references:
+    - https://attack.mitre.org/techniques/T1014/
+    - https://github.com/SigmaHQ/sigma
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.defense_evasion
+    - attack.t1014
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_executables:
+        Image|endswith:
+            - '\klink.exe'
+            - '\gmer.exe'
+            - '\rootkit.exe'
+            - '\mhyprot.sys'
+            - '\kdmapper.exe'
+            - '\drvload.exe'
+    selection_cmdline:
+        CommandLine|contains:
+            - 'sc create * type= kernel'
+            - 'sc start *'
+            - 'KDU.exe -prv'
+            - 'net start *'
+            - 'bcdedit /set testsigning on'
+            - 'bcdedit /set nointegritychecks on'
+            - 'fltmc unload'
+    condition: selection_executables or selection_cmdline
+falsepositives:
+    - Legitimate driver installation by security or system management software
+    - Developers enabling Test Signing mode on dedicated test hardware
+level: high

@@ -1,0 +1,43 @@
+title: Network Boundary Bridging: NAT Traversal and Tunneling Activity
+id: f4819a2b-1029-4e2a-89a1-872f2a1e9481
+status: experimental
+description: Detects process execution of known NAT traversal tools or outbound network traffic targeting STUN/TURN servers used to establish bidirectional channels through NAT boundaries (T1599.001).
+references:
+    - https://attack.mitre.org/techniques/T1599/001/
+    - https://attack.mitre.org/techniques/T1572/
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.command-and-control
+    - attack.defense-evasion
+    - attack.t1599.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    # 1. Execution of known NAT traversal, hole-punching, or reverse proxy tools
+    selection_tools:
+        CommandLine|contains:
+            - 'chisel'
+            - 'frpc'
+            - 'frps'
+            - 'ngrok'
+            - 'gost'
+            - 'stun'
+            - 'holepunch'
+            - 'n2n'
+            - 'zerotier'
+            - 'tailscale' # Often abused by adversaries for stealthy egress NAT traversal
+
+    # 2. UPnP / IGD port mapping via command line (e.g., upnpc, PowerShell)
+    selection_upnp_cmd:
+        CommandLine|contains:
+            - 'AddPortMapping'
+            - 'upnpc'
+            - 'miniupnpc'
+
+    condition: selection_tools or selection_upnp_cmd
+falsepositives:
+    - Legitimate remote administration or VPN software utilizing STUN/TURN or ZeroTier/Tailscale.
+    - VoIP/WebRTC software (e.g., Teams, Zoom) using STUN/TURN for media streaming (monitor destination IPs).
+level: high

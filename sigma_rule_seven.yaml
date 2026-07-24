@@ -1,0 +1,51 @@
+title: Process Injection: Dynamic-Link Library Injection
+id: a876b51e-3f82-4d2c-9a1d-872f2a1e9021
+status: experimental
+description: Detects process injection via DLL injection (T1055.001) by monitoring remote thread creation into critical system processes or DLL loads originating from suspicious directories.
+references:
+    - https://attack.mitre.org/techniques/T1055/001/
+    - https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.defense-evasion
+    - attack.privilege-escalation
+    - attack.t1055.001
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    # 1. Remote thread creation targeting sensitive system processes
+    selection_remote_thread:
+        EventID: 8
+        TargetImage|endswith:
+            - '\lsass.exe'
+            - '\svchost.exe'
+            - '\explorer.exe'
+            - '\spoolsv.exe'
+            - '\winlogon.exe'
+            - '\csrss.exe'
+            - '\rundll32.exe'
+
+    # Filter out legitimate system self-injection or system binary parents
+    filter_legit_source:
+        SourceImage|endswith:
+            - '\csrss.exe'
+            - '\services.exe'
+            - '\svchost.exe'
+
+    # 2. Image Load of DLLs executed from suspicious user-writable directories
+    selection_suspicious_dll_load:
+        EventID: 7
+        ImageLoaded|contains:
+            - '\AppData\Local\Temp\'
+            - '\Users\Public\'
+            - '\Windows\Temp\'
+            - '\ProgramData\'
+        ImageLoaded|endswith: '.dll'
+
+    condition: (selection_remote_thread and not filter_legit_source) or selection_suspicious_dll_load
+falsepositives:
+    - Legitimate security tools, AV/EDR drivers, or debuggers creating remote threads for inspection.
+    - Specialized enterprise software that legitimately injects DLLs for monitoring or hooked functions.
+level: high

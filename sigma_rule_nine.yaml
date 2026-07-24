@@ -1,0 +1,28 @@
+title: Systemd Unit File Creation or Modification
+id: e2b083c2-7b19-482a-a231-1823a02187fa
+status: experimental
+description: Detects the creation or modification of systemd unit (.service) files in system or user directories.
+references:
+    - https://attack.mitre.org/techniques/T1543/002/
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.persistence
+    - attack.t1543.002
+logsource:
+    category: file_event
+    product: linux
+detection:
+    selection_paths:
+        TargetFilename|contains:
+            - '/etc/systemd/system/'
+            - '/usr/lib/systemd/system/'
+            - '/.config/systemd/user/'
+    selection_ext:
+        TargetFilename|endswith:
+            - '.service'
+            - '.timer'
+    condition: all of selection_*
+falsepositives:
+    - Software package installations
+level: high

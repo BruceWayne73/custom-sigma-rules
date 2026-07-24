@@ -1,0 +1,37 @@
+title: Subvert Trust Controls: Mark-of-the-Web (MOTW) Bypass
+id: d924f112-28b7-4a0b-923f-e218218197aa
+status: experimental
+description: Detects actions used to bypass or strip Mark-of-the-Web (MOTW) protections (T1553.005), including deleting the Zone.Identifier Alternate Data Stream (ADS), executing Unblock-File, or mounting disk images (ISO/VHD) from user directories.
+references:
+    - https://attack.mitre.org/techniques/T1553/005/
+    - https://redcanary.com/threat-detection-report/techniques/mark-of-the-web-bypass/
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.defense-evasion
+    - attack.t1553.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    # 1. Direct Removal of Zone.Identifier ADS via CLI or PowerShell
+    selection_cmd_removal:
+        CommandLine|contains:
+            - ':Zone.Identifier'
+            - 'Unblock-File'
+            - 'Remove-Item -Path *:Zone.Identifier'
+
+    # 2. Automated or scripted mounting of ISO/VHD files (common delivery mechanism)
+    selection_mount_tools:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Mount-DiskImage'
+            - 'Mount-VHD'
+
+    condition: selection_cmd_removal or selection_mount_tools
+falsepositives:
+    - Software developers unblocking freshly downloaded internal tools.
+    - Automated deployment scripts mounting ISO images for legitimate software updates.
+level: high

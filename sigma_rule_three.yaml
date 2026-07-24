@@ -1,0 +1,45 @@
+title: Application Layer Protocol: Web Protocols C2 and Malicious Egress Activity
+id: 5f2d1e91-89ab-42c1-a398-72412ef172d1
+status: experimental
+description: Detects suspicious HTTP/HTTPS outbound requests indicative of Command and Control (C2) communication abusing web protocols (T1071.001), including default tool User-Agents, suspicious URI paths, or direct-to-IP web connections.
+references:
+    - https://attack.mitre.org/techniques/T1071/001/
+    - https://github.com/SigmaHQ/sigma
+author: Arda Aktürk
+date: 2026-07-22
+tags:
+    - attack.command-and-control
+    - attack.t1071.001
+logsource:
+    category: webproxy
+    # Works across proxies/firewalls (e.g., Zscaler, Palo Alto, Squid, Zeek HTTP)
+detection:
+    selection_user_agent:
+        # Common unconfigured default User-Agents for C2 frameworks & scanners
+        c-useragent|contains:
+            - 'Go-http-client'
+            - 'Python-urllib'
+            - 'curl/'
+            - 'Wget/'
+            - 'Metasploit'
+            - 'CobaltStrike'
+            - 'Empire'
+            - 'powershell'
+
+    selection_direct_ip:
+        # C2 infrastructure often accessed directly by IP rather than domain name
+        cs-host|re: '^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$'
+
+    selection_suspicious_uris:
+        # Common staging / C2 beacon endpoints
+        cs-uri-stem|contains:
+            - '/admin/get.php'
+            - '/news.php'
+            - '/connect'
+            - '/login/process.php'
+
+    condition: selection_user_agent or (selection_direct_ip and selection_suspicious_uris)
+falsepositives:
+    - Automated administrative scripts or DevOps tools using cURL/Python/Go inside the network.
+    - Legitimate internal tools making direct IP HTTP calls.
+level: high
