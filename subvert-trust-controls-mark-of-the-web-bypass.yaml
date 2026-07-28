@@ -1,7 +1,7 @@
 title: Subvert Trust Controls: Mark-of-the-Web (MOTW) Bypass
 id: d924f112-28b7-4a0b-923f-e218218197aa
 status: experimental
-description: Detects actions used to bypass or strip Mark-of-the-Web (MOTW) protections (T1553.005), including deleting the Zone.Identifier Alternate Data Stream (ADS), executing Unblock-File, or mounting disk images (ISO/VHD) from user directories.
+description: Detects actions used to bypass or strip Mark-of-the-Web (MOTW) protections (T1553.005), including deleting the Zone.Identifier Alternate Data Stream (ADS), executing Unblock-File, or mounting disk images (ISO/VHD) from user directories. T1553.005 - Mark-of-the-Web Bypass
 references:
     - https://attack.mitre.org/techniques/T1553/005/
     - https://redcanary.com/threat-detection-report/techniques/mark-of-the-web-bypass/
