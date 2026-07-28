@@ -1,7 +1,7 @@
 title: Network Boundary Bridging: NAT Traversal and Tunneling Activity
 id: f4819a2b-1029-4e2a-89a1-872f2a1e9481
 status: experimental
-description: Detects process execution of known NAT traversal tools or outbound network traffic targeting STUN/TURN servers used to establish bidirectional channels through NAT boundaries (T1599.001).
+description: Detects process execution of known NAT traversal tools or outbound network traffic targeting STUN/TURN servers used to establish bidirectional channels through NAT boundaries. T1599.001 - External Network Bridge
 references:
     - https://attack.mitre.org/techniques/T1599/001/
     - https://attack.mitre.org/techniques/T1572/
