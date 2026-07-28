@@ -1,7 +1,7 @@
 title: Application Layer Protocol: Web Protocols C2 and Malicious Egress Activity
 id: 5f2d1e91-89ab-42c1-a398-72412ef172d1
 status: experimental
-description: Detects suspicious HTTP/HTTPS outbound requests indicative of Command and Control (C2) communication abusing web protocols (T1071.001), including default tool User-Agents, suspicious URI paths, or direct-to-IP web connections.
+description: Detects suspicious HTTP/HTTPS outbound requests indicative of Command and Control (C2) communication abusing web protocols (T1071.001), including default tool User-Agents, suspicious URI paths, or direct-to-IP web connections. T1071.001 - Application Layer Protocol: Web Protocols
 references:
     - https://attack.mitre.org/techniques/T1071/001/
     - https://github.com/SigmaHQ/sigma
