@@ -1,7 +1,7 @@
 title: Process Injection: Dynamic-Link Library Injection
 id: a876b51e-3f82-4d2c-9a1d-872f2a1e9021
 status: experimental
-description: Detects process injection via DLL injection (T1055.001) by monitoring remote thread creation into critical system processes or DLL loads originating from suspicious directories.
+description: Detects process injection via DLL injection (T1055.001) by monitoring remote thread creation into critical system processes or DLL loads originating from suspicious directories. T1055.001 - DLL Injection
 references:
     - https://attack.mitre.org/techniques/T1055/001/
     - https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
