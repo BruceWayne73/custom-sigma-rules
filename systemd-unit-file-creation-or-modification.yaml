@@ -1,7 +1,7 @@
 title: Systemd Unit File Creation or Modification
 id: e2b083c2-7b19-482a-a231-1823a02187fa
 status: experimental
-description: Detects the creation or modification of systemd unit (.service) files in system or user directories.
+description: Detects the creation or modification of systemd unit (.service) files in system or user directories. T1543.002 - Systemd Service
 references:
     - https://attack.mitre.org/techniques/T1543/002/
 author: Arda Aktürk
