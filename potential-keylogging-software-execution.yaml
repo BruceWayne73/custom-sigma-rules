@@ -1,7 +1,7 @@
 title: Potential Keylogging Software Execution
 id: c38012e1-456d-4912-a722-e3288fb837c1
 status: test
-description: Detects the execution of known keylogger utilities, command-line arguments associated with keystroke logging, or suspicious software capturing user input.
+description: Detects the execution of known keylogger utilities, command-line arguments associated with keystroke logging, or suspicious software capturing user input. T1056.001 - Input Capture: Keylogging
 references:
     - https://attack.mitre.org/techniques/T1056/001/
 author: Arda Aktürk
