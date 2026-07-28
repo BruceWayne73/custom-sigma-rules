@@ -1,7 +1,7 @@
 title: Web Server Spawning Interactive Shell
 id: 8c381f01-52a8-4e11-a889-13b78292c608
 status: experimental
-description: Detects a web server process (Apache, Nginx, Lighttpd, PHP-FPM) spawning a shell or interpreter, which often indicates web shell execution or remote code execution (RCE).
+description: Detects a web server process (Apache, Nginx, Lighttpd, PHP-FPM) spawning a shell or interpreter, which often indicates web shell execution or remote code execution (RCE). T1505.003 - Web Shell, T1059.004 - Unix Shell
 references:
     - https://attack.mitre.org/techniques/T1505/003/
     - https://attack.mitre.org/techniques/T1059/004/
