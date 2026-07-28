@@ -1,7 +1,7 @@
 title: Potential Rootkit Installation or Driver Loading
 id: f4782b9a-8e21-4d39-91a5-3d849a629f2e
 status: experimental
-description: Detects process creation events, driver loading commands, or tools associated with rootkit deployment and kernel driver manipulation.
+description: Detects process creation events, driver loading commands, or tools associated with rootkit deployment and kernel driver manipulation. T1014 - Rootkit
 references:
     - https://attack.mitre.org/techniques/T1014/
     - https://github.com/SigmaHQ/sigma
