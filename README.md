@@ -12,7 +12,7 @@ Bu depo, farklı saldırı tekniklerini tespit etmeye yönelik Sigma kuralların
 
 ---
 
-## Potential Keylogging Software Execution
+## [Potential Keylogging Software Execution](potential-keylogging-software-execution.yaml)
 
 Windows sistemlerde kullanıcı klavye girdilerini takip eden ve kaydetmeye çalışan bilinen Keylogger yazılımlarının veya bunlarla ilişkili komut satırı parametrelerinin çalıştırılmasını tespit eder.
 
@@ -40,7 +40,7 @@ Windows sistemlerde kullanıcı klavye girdilerini takip eden ve kaydetmeye çal
 
 ---
 
-## Application Layer Protocol: DNS Tunneling or C2 Activity
+## [Application Layer Protocol: DNS Tunneling or C2 Activity](application-layer-protocol-dns-tunneling-or-c2-activity.yaml)
 
 DNS protokolü kötüye kullanılarak yapılan tünelleme (DNS Tunneling), veri sızdırma (data exfiltration) veya komuta kontrol (C2) sunucusu haberleşme aktivitelerini tespit eder.
 
@@ -70,7 +70,7 @@ Aşağıdaki iki durum aynı anda gerçekleştiğinde tetiklenir:
 
 ---
 
-## Application Layer Protocol: Web Protocols C2 and Malicious Egress Activity
+## [Application Layer Protocol: Web Protocols C2 and Malicious Egress Activity](application-layer-protocol-web-protocols-c2-and-malicious-egress-activity.yaml)
 
 Web protokolleri (HTTP/HTTPS) kullanılarak C2 sunucularıyla kurulan dışa dönük (egress) şüpheli bağlantıları ve sızma testi araçlarının izlerini tespit eder.
 
@@ -115,7 +115,7 @@ Alan adı yerine doğrudan IP adresine yapılan ve aşağıdaki URI'leri hedefle
 
 ---
 
-## Adversary-in-the-Middle: Rogue DHCP Server Activity
+## [Adversary-in-the-Middle: Rogue DHCP Server Activity](adversary-in-the-middle-rogue-dhcp-server-activity.yaml)
 
 Ağ üzerinde yetkisiz (rogue) DHCP sunucularını veya DHCP Spoofing aktivitelerini tespit eder.
 
@@ -150,7 +150,7 @@ Aşağıdaki Event ID'lerden herhangi biri oluştuğunda tetiklenir:
 
 ---
 
-## Subvert Trust Controls: Mark-of-the-Web (MOTW) Bypass
+## [Subvert Trust Controls: Mark-of-the-Web (MOTW) Bypass](subvert-trust-controls-mark-of-the-web-bypass.yaml)
 
 İnternetten indirilen dosyalardaki Mark-of-the-Web korumasını kaldırmaya yönelik aktiviteleri tespit eder.
 
@@ -181,7 +181,7 @@ Aşağıdaki Event ID'lerden herhangi biri oluştuğunda tetiklenir:
 
 ---
 
-## Network Boundary Bridging: NAT Traversal and Tunneling Activity
+## [Network Boundary Bridging: NAT Traversal and Tunneling Activity](network-boundary-bridging-nat-traversal-and-tunneling-activity.yaml)
 
 Tünelleme araçlarının veya UPnP port yönlendirme komutlarının çalıştırılmasını tespit eder.
 
@@ -221,7 +221,7 @@ Tünelleme araçlarının veya UPnP port yönlendirme komutlarının çalıştı
 
 ---
 
-## Process Injection: Dynamic-Link Library Injection
+## [Process Injection: Dynamic-Link Library Injection](process-injection-dynamic-link-library-injection.yaml)
 
 DLL Injection ve Remote Thread Injection aktivitelerini tespit eder.
 
@@ -264,7 +264,7 @@ Hedef süreçler:
 
 ---
 
-## Potential Rootkit Installation or Driver Loading
+## [Potential Rootkit Installation or Driver Loading](potential-rootkit-installation-or-driver-loading.yaml)
 
 Rootkit kurulumu veya BYOVD saldırılarıyla ilişkili sürücü yükleme aktivitelerini tespit eder.
 
@@ -299,7 +299,7 @@ Rootkit kurulumu veya BYOVD saldırılarıyla ilişkili sürücü yükleme aktiv
 
 ---
 
-## Systemd Unit File Creation or Modification
+## [Systemd Unit File Creation or Modification](systemd-unit-file-creation-or-modification.yaml)
 
 Linux sistemlerde persistence amacıyla systemd servis veya timer dosyalarının oluşturulmasını ya da değiştirilmesini tespit eder.
 
@@ -334,7 +334,7 @@ Dosya uzantıları:
 
 ---
 
-## Web Server Spawning Interactive Shell
+## [Web Server Spawning Interactive Shell](web-server-spawning-interactive-shell.yaml)
 
 Linux web sunucularının shell başlatmasını tespit eder. Genellikle Web Shell veya RCE saldırılarının göstergesidir.
 
